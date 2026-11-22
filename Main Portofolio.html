@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonathan Rionaldo Pratama | Web Developer & UI/UX Designer</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            purple: {
+              50: '#faf5ff',
+              100: '#f3e8ff',
+              200: '#e9d5ff',
+              300: '#d8b4fe',
+              400: '#c084fc',
+              500: '#a855f7',
+              600: '#9333ea',
+              700: '#7e22ce',
+              800: '#6b21a8',
+              900: '#581c87',
+              950: '#3b0764',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* Custom Scrollbar Elemen Ungu */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d8b4fe;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9333ea;
+    }
+
+    /* Ambient Purple Glow & Keyframe Animations */
+    .hero-glow {
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(147, 51, 234, 0.22) 42%, rgba(255, 255, 255, 0) 70%);
+      animation: pulse-glow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse-glow {
+      0% {
+        transform: translate(-50%, -50%) scale(0.92);
+        opacity: 0.75;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    @keyframes float-hero {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animate-float {
+      animation: float-hero 5s ease-in-out infinite;
+    }
+
+    .card-purple-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-purple-hover:hover {
+      border-color: #c084fc;
+      transform: translateY(-5px);
+      box-shadow: 0 16px 32px -10px rgba(147, 51, 234, 0.16);
+    }
+
+    /* Shimmer Effect for dynamic badge */
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-slate-800 font-sans antialiased selection:bg-purple-600 selection:text-white min-h-screen flex flex-col justify-between">
+
+  <!-- Header / Navigasi Bar -->
+  <header class="fixed top-0 left-0 w-full z-40 bg-white/85 backdrop-blur-md border-b border-purple-100/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo Sesuai Referensi -->
+      <a href="#home" class="flex items-center gap-2 group">
+        <span class="text-2xl font-black tracking-tight text-slate-900 group-hover:text-purple-700 transition-colors">
+          Jonathan<span class="text-purple-600">.</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav Items -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm font-medium text-slate-600 hover:text-purple-700 transition-colors">Tentang Saya</a>
+        <a href="#experience" class="text-sm font-medium text-slate-600 hover:text-purple-700 transition-colors">Pengalaman</a>
+        <a href="#projects" class="text-sm font-medium text-slate-600 hover:text-purple-700 transition-colors">Proyek</a>
+        <a href="#skills" class="text-sm font-medium text-slate-600 hover:text-purple-700 transition-colors">Keahlian</a>
+        <a href="#certificates" class="text-sm font-medium text-slate-600 hover:text-purple-700 transition-colors">Sertifikat</a>
+        <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-purple-700 transition-colors">Kontak</a>
+      </nav>
+
+      <!-- CTA Button Kontak di Header -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="#contact" 
+           class="px-5 py-2.5 rounded-full bg-purple-600 text-white text-xs font-semibold hover:bg-purple-700 transition-all shadow-md shadow-purple-500/20 hover:scale-[1.02] flex items-center gap-2">
+          <span>Hubungi Saya</span>
+          <i class="fa-solid fa-paper-plane text-[10px]"></i>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobileMenuBtn" aria-label="Buka Menu" class="md:hidden w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-900 focus:outline-none">
+        <i id="menuIcon" class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-b border-purple-100 bg-white/95 backdrop-blur-xl px-6 py-5 space-y-3">
+      <a href="#home" class="mobile-nav-link block text-slate-700 hover:text-purple-600 font-medium py-1">Home</a>
+      <a href="#about" class="mobile-nav-link block text-slate-700 hover:text-purple-600 font-medium py-1">Tentang Saya</a>
+      <a href="#experience" class="mobile-nav-link block text-slate-700 hover:text-purple-600 font-medium py-1">Pengalaman</a>
+      <a href="#projects" class="mobile-nav-link block text-slate-700 hover:text-purple-600 font-medium py-1">Proyek</a>
+      <a href="#skills" class="mobile-nav-link block text-slate-700 hover:text-purple-600 font-medium py-1">Keahlian</a>
+      <a href="#certificates" class="mobile-nav-link block text-slate-700 hover:text-purple-600 font-medium py-1">Sertifikat</a>
+      <a href="#contact" class="mobile-nav-link block text-slate-700 hover:text-purple-600 font-medium py-1">Kontak</a>
+    </div>
+  </header>
+
+  <main class="pt-20 flex-grow">
+    
+    <!-- Hero Section (Responsif Tiga Kolom dengan Animasi Halus & Dinamis) -->
+    <section id="home" class="relative overflow-hidden min-h-[calc(100vh-5rem)] flex items-center justify-center py-14 lg:py-0 bg-gradient-to-b from-purple-50/50 via-white to-white">
+      
+      <!-- Latar Belakang Lingkaran Glow Ungu Berdenyut (Animated Pulse) -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[500px] lg:w-[620px] h-[340px] sm:h-[500px] lg:h-[620px] hero-glow rounded-full pointer-events-none -z-0"></div>
+
+      <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+          
+          <!-- Sisi Kiri Hero: Hello, I'm Jonathan Rionaldo & Vertikal Social Icons -->
+          <div class="lg:col-span-4 order-2 lg:order-1 text-center lg:text-left flex flex-col justify-between space-y-6">
+            
+            <!-- Animated Badge Status -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-purple-200 text-xs font-semibold text-purple-800 shadow-sm mx-auto lg:mx-0 w-fit">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <span id="typingRoleText">S1 Sistem Informasi Tel-U</span>
+            </div>
+
+            <div class="space-y-2">
+              <span class="text-sm sm:text-base font-bold text-purple-600 tracking-wide uppercase">
+                Hello, I'm
+              </span>
+              <h1 class="text-3xl sm:text-5xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                Jonathan <br class="hidden sm:inline" />
+                <span class="text-purple-700 bg-gradient-to-r from-purple-700 to-purple-500 bg-clip-text text-transparent">
+                  Rionaldo Pratama
+                </span>
+              </h1>
+            </div>
+
+            <!-- Social Media Icons (LinkedIn, Instagram, Email, WhatsApp/Telepon) -->
+            <div class="pt-2">
+              <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-3 hidden lg:block">Sosial & Kontak Langsung</p>
+              <div class="flex items-center justify-center lg:justify-start gap-3">
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/jonathanrionaldo/" target="_blank" rel="noopener noreferrer" 
+                   class="w-11 h-11 rounded-2xl bg-white border border-purple-200 text-purple-700 hover:bg-purple-600 hover:text-white transition-all flex items-center justify-center shadow-sm hover:scale-110"
+                   title="LinkedIn: in/jonathanrionaldo">
+                  <i class="fa-brands fa-linkedin-in text-base"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/rionaldo0607" target="_blank" rel="noopener noreferrer"
+                   class="w-11 h-11 rounded-2xl bg-white border border-purple-200 text-purple-700 hover:bg-purple-600 hover:text-white transition-all flex items-center justify-center shadow-sm hover:scale-110"
+                   title="Instagram: @rionaldo0607">
+                  <i class="fa-brands fa-instagram text-base"></i>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:rionaldo0607@gmail.com" 
+                   class="w-11 h-11 rounded-2xl bg-white border border-purple-200 text-purple-700 hover:bg-purple-600 hover:text-white transition-all flex items-center justify-center shadow-sm hover:scale-110"
+                   title="Kirim Email: rionaldo0607@gmail.com">
+                  <i class="fa-solid fa-envelope text-base"></i>
+                </a>
+
+                <!-- Telepon / WhatsApp -->
+                <a href="https://wa.me/6287754959733" target="_blank" rel="noopener noreferrer"
+                   class="w-11 h-11 rounded-2xl bg-white border border-purple-200 text-purple-700 hover:bg-purple-600 hover:text-white transition-all flex items-center justify-center shadow-sm hover:scale-110"
+                   title="WhatsApp / Telepon: +62 877-5495-9733">
+                  <i class="fa-brands fa-whatsapp text-base"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sisi Tengah Hero: Foto Profil Floating dengan Purple Aura Ring (Path: images/profile.png) -->
+          <div class="lg:col-span-4 order-1 lg:order-2 flex justify-center items-center relative">
+            <div class="relative w-64 h-80 sm:w-72 sm:h-96 lg:w-80 lg:h-[430px] animate-float">
+              
+              <!-- Ambient Backlight Circle -->
+              <div class="absolute inset-0 m-auto w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-purple-500/30 blur-2xl -z-10"></div>
+              
+              <!-- Container Foto Profil -->
+              <div class="w-full h-full rounded-3xl overflow-hidden border-2 border-purple-200/80 bg-white/70 backdrop-blur-sm shadow-2xl shadow-purple-900/10 flex items-center justify-center group relative">
+                <img src="images/profil.jpeg" 
+                     alt="Foto Profil Jonathan Rionaldo Pratama" 
+                     class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80';" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Sisi Kanan Hero: "Creative Developer & Designer" -->
+          <div class="lg:col-span-4 order-3 text-center lg:text-left space-y-6">
+            <div class="space-y-1">
+              <p class="text-sm sm:text-base font-semibold text-purple-600 tracking-wide uppercase">
+                Mahasiswa
+              </p>
+              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                <span class="text-purple-700">S1 Sistem Informasi</span> <br />
+              </h2>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed text-justify lg:text-left">
+              Mengintegrasikan keahlian teknis pemrograman (C#, Laravel, PHP, JavaScript, MySQL) dengan kepekaan desain antarmuka Figma dan visual branding media.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+              <a href="#projects" 
+                 class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-purple-800 transition-all shadow-md shadow-slate-900/10 hover:scale-105">
+                <span>Lihat Proyek</span>
+                <i class="fa-solid fa-arrow-down text-[10px]"></i>
+              </a>
+
+              <a href="#about" 
+                 class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-xs font-semibold hover:bg-purple-100 transition-all">
+                <span>Tentang Saya</span>
+              </a>
+            </div>
+
+            <div class="pt-4 border-t border-purple-100 flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-500">
+              <i class="fa-solid fa-location-dot text-purple-600"></i>
+              <span>Surabaya, Jawa Timur, Indonesia</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me & Education Section -->
+    <section id="about" class="py-20 bg-purple-50/30 border-t border-purple-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs font-bold text-purple-700 uppercase tracking-widest bg-purple-100/80 px-3.5 py-1 rounded-full border border-purple-200">
+            About Me & Education
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Jonathan Rionaldo Pratama</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          <!-- Summary Box (7 Cols) -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="bg-white border border-purple-100 rounded-3xl p-7 sm:p-9 shadow-sm">
+              <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-user-check"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">About Me</h3>
+              </div>
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed text-justify">
+                Mahasiswa Sistem Informasi di <strong class="text-slate-900">Telkom University</strong> yang memiliki minat kuat dalam pengembangan web dan desain UI/UX. Memiliki keterampilan dalam <span class="text-purple-700 font-semibold">C#, Laravel, JavaScript, PHP, MySQL, dan Figma</span>, serta pengalaman berorganisasi yang mengasah kemampuan kepemimpinan, kerja sama tim, dan komunikasi.
+              </p>
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed mt-4 text-justify">
+                Berkomitmen untuk menggabungkan kemampuan teknis dan kreativitas dalam mengembangkan solusi digital yang berorientasi pada pengguna serta memberikan dampak nyata melalui proyek teknologi.
+              </p>
+
+              <!-- Language Proficiency -->
+              <div class="mt-8 pt-6 border-t border-purple-100">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Kemampuan Bahasa (Languages)</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="p-3.5 rounded-2xl bg-purple-50/60 border border-purple-100 flex items-center justify-between">
+                    <div>
+                      <p class="text-sm font-bold text-slate-900">Indonesia</p>
+                      <p class="text-xs text-slate-500">Bahasa Utama</p>
+                    </div>
+                    <span class="text-xs px-3 py-1 rounded-full bg-purple-200/60 text-purple-800 font-semibold">Native</span>
+                  </div>
+
+                  <div class="p-3.5 rounded-2xl bg-purple-50/60 border border-purple-100 flex items-center justify-between">
+                    <div>
+                      <p class="text-sm font-bold text-slate-900">English</p>
+                      <p class="text-xs text-slate-500">Bahasa Internasional</p>
+                    </div>
+                    <span class="text-xs px-3 py-1 rounded-full bg-purple-200/60 text-purple-800 font-semibold">Conversational</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education Timeline (5 Cols) -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="bg-white border border-purple-100 rounded-3xl p-7 sm:p-9 shadow-sm">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Pendidikan (Education)</h3>
+              </div>
+
+              <div class="relative pl-6 space-y-8 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-purple-100">
+                
+                <!-- Telkom University -->
+                <div class="relative">
+                  <div class="absolute -left-[29px] top-1 w-3.5 h-3.5 rounded-full bg-purple-600 ring-4 ring-purple-100"></div>
+                  <div class="space-y-1">
+                    <span class="text-[11px] font-bold text-purple-700 bg-purple-100 px-2.5 py-0.5 rounded-full">
+                      Sep 2024 - Present
+                    </span>
+                    <h4 class="text-base font-bold text-slate-900 pt-1">S1 Sistem Informasi (Kampus Surabaya)</h4>
+                    <p class="text-xs font-semibold text-purple-800">Telkom University</p>
+                    <p class="text-xs text-slate-600 leading-relaxed text-justify pt-1">
+                      Mempelajari pengembangan dan pengelolaan sistem informasi dengan fokus pada pemrograman, basis data, analisis sistem, pengembangan web, serta manajemen proyek TI. Aktif mengembangkan kemampuan teknis dan problem solving melalui berbagai proyek akademik, sekaligus meningkatkan kemampuan komunikasi, kepemimpinan, dan kerja sama tim melalui kegiatan organisasi kampus.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- SMAK Stella Maris -->
+                <div class="relative">
+                  <div class="absolute -left-[29px] top-1 w-3.5 h-3.5 rounded-full bg-slate-400 ring-4 ring-slate-100"></div>
+                  <div class="space-y-1">
+                    <span class="text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                      Aug 2021 - May 2024
+                    </span>
+                    <h4 class="text-base font-bold text-slate-900 pt-1">Matematika dan Ilmu Pengetahuan Alam (MIPA)</h4>
+                    <p class="text-xs font-semibold text-slate-700">SMAK Stella Maris, Surabaya</p>
+                    <p class="text-xs text-slate-600 leading-relaxed text-justify pt-1">
+                      Menempuh pendidikan pada jurusan Matematika dan Ilmu Pengetahuan Alam (MIPA) dengan fokus pada pengembangan kemampuan berpikir logis, analitis, dan pemecahan masalah melalui pembelajaran matematika serta sains. Pendidikan ini menjadi dasar dalam membangun kemampuan analisis dan ketertarikan terhadap bidang teknologi dan sistem informasi.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Experience / Organizations Section (Klik untuk Menampilkan Detail Modal) -->
+    <section id="experience" class="py-20 bg-white border-t border-purple-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs font-bold text-purple-700 uppercase tracking-widest bg-purple-100/80 px-3.5 py-1 rounded-full border border-purple-200">
+            Pengalaman Organisasi
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Kemahasiswaan Kampus </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Org 1: DPM -->
+          <div onclick="openExperienceModal(0)" 
+               class="bg-white border border-purple-100 rounded-3xl p-7 card-purple-hover cursor-pointer flex flex-col justify-between shadow-sm group">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full">
+                  Jan 2026 - Present
+                </span>
+                <span class="text-xs text-purple-600 font-semibold flex items-center gap-1">
+                  <i class="fa-solid fa-circle text-[7px] animate-pulse"></i> Aktif
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors">
+                  Kadiv Media dan Informasi
+                </h3>
+                <p class="text-xs font-semibold text-purple-700">DPM Tel-U Surabaya</p>
+              </div>
+
+              <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-4">
+                Bertanggung jawab dalam memimpin dan mengoordinasikan Divisi Media dan Informasi, meliputi pengelolaan media sosial, perencanaan dan pembuatan konten visual, dokumentasi kegiatan, serta publikasi informasi organisasi. Mengembangkan strategi untuk meningkatkan engagement dan jangkauan media sosial.
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-purple-100 flex items-center justify-between">
+              <span class="text-[11px] font-semibold text-purple-600 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                <span>Lihat Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </span>
+              <span class="text-[10px] text-slate-400">Leadership</span>
+            </div>
+          </div>
+
+          <!-- Org 2: KMK St Filegon -->
+          <div onclick="openExperienceModal(1)" 
+               class="bg-white border border-purple-100 rounded-3xl p-7 card-purple-hover cursor-pointer flex flex-col justify-between shadow-sm group">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full">
+                  Jan 2026 - Present
+                </span>
+                <span class="text-xs text-purple-600 font-semibold flex items-center gap-1">
+                  <i class="fa-solid fa-circle text-[7px] animate-pulse"></i> Aktif
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors">
+                  Staff Komunikasi dan Informasi
+                </h3>
+                <p class="text-xs font-semibold text-purple-700">KMK St Filegon Tel-U Surabaya</p>
+              </div>
+
+              <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-4">
+                Berperan dalam mendukung pengelolaan komunikasi, informasi, dan publikasi organisasi melalui pembuatan konten media sosial, desain materi publikasi, serta dokumentasi kegiatan. Berkolaborasi dengan tim dalam menyampaikan informasi kegiatan secara informatif dan menarik.
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-purple-100 flex items-center justify-between">
+              <span class="text-[11px] font-semibold text-purple-600 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                <span>Lihat Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </span>
+              <span class="text-[10px] text-slate-400">Komunikasi</span>
+            </div>
+          </div>
+
+          <!-- Org 3: BEM -->
+          <div onclick="openExperienceModal(2)" 
+               class="bg-white border border-purple-100 rounded-3xl p-7 card-purple-hover cursor-pointer flex flex-col justify-between shadow-sm group">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 rounded-full">
+                  May 2025 - Jan 2026
+                </span>
+                <span class="text-xs text-slate-500 font-semibold">
+                  Selesai
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors">
+                  Staff Muda Kominfo
+                </h3>
+                <p class="text-xs font-semibold text-purple-700">BEM KEMA Tel-U Surabaya</p>
+              </div>
+
+              <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-4">
+                Berperan dalam mendukung kegiatan komunikasi, informasi, dan publikasi organisasi melalui pembuatan serta pengelolaan konten media sosial. Terlibat dalam desain konten, dokumentasi kegiatan, penyampaian informasi kepada mahasiswa, serta publikasi program kerja BEM KEMA Telkom University Surabaya.
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-purple-100 flex items-center justify-between">
+              <span class="text-[11px] font-semibold text-purple-600 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                <span>Lihat Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </span>
+              <span class="text-[10px] text-slate-400">BEM KEMA</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Projects Section (Klik untuk Menampilkan Detail Modal dengan URL & Gambar) -->
+    <section id="projects" class="py-20 bg-purple-50/30 border-t border-purple-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs font-bold text-purple-700 uppercase tracking-widest bg-purple-100/80 px-3.5 py-1 rounded-full border border-purple-200">
+            Project Overview
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Project & Portfolio </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Project 1: UI/UX Design System -->
+          <div onclick="openProjectModal(0)" 
+               class="bg-white border border-purple-100 rounded-3xl overflow-hidden card-purple-hover cursor-pointer flex flex-col justify-between shadow-sm group">
+            <div>
+              <div class="h-52 w-full overflow-hidden relative bg-purple-100 flex items-center justify-center">
+                <img src="images/project-uiux.jpg" 
+                     alt="Aplikasi Kesehatan KlikFit Prototype" 
+                     class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=700&q=80';" />
+                <span class="absolute top-3 right-3 text-[11px] font-bold bg-white/95 text-purple-700 px-3 py-1 rounded-full shadow-sm border border-purple-100">
+                  Prototype & UI/UX
+                </span>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors">
+                  Aplikasi Kesehatan KlikFit 
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-3">
+                  Aplikasi kesehatan tahap prototype yang mengintegrasikan chatbox, jadwal latihan, trainer dan tempat olahraga dimana user bisa memilih trainer dan berinteraksi langsung dengan trainer melalui fitur chatbox serta melihat jadwal latihan berdasarkan kategori  berdasarkan data booking oleh user
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0">
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">Figma</span>
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">UI/UX</span>
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">Canva</span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-purple-600 font-semibold">
+                <span>Klik untuk Detail & URL</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: Web Development Laravel & MySQL -->
+          <div onclick="openProjectModal(1)" 
+               class="bg-white border border-purple-100 rounded-3xl overflow-hidden card-purple-hover cursor-pointer flex flex-col justify-between shadow-sm group">
+            <div>
+              <div class="h-52 w-full overflow-hidden relative bg-purple-100 flex items-center justify-center">
+                <img src="images/project-web.jpg" 
+                     alt="Sistem Informasi & Web Portal" 
+                     class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=700&q=80';" />
+                <span class="absolute top-3 right-3 text-[11px] font-bold bg-white/95 text-purple-700 px-3 py-1 rounded-full shadow-sm border border-purple-100">
+                  Web & Database
+                </span>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors">
+                  SIstem Monitoring Ruang Kelas Tel-U Surabaya
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-3">
+                 Sistem berbasis Laravel yang dirancang untuk memfasilitasi proses peminjaman ruang kelas di lingkungan Telkom University Surabaya, mencakup pengecekan ketersediaan ruang dan pengajuan peminjaman secara digital.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0">
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">Laravel</span>
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">PHP</span>
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">MySQL</span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-purple-600 font-semibold">
+                <span>Klik untuk Detail & URL</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Visual Identity & Publication Media -->
+          <div onclick="openProjectModal(2)" 
+               class="bg-white border border-purple-100 rounded-3xl overflow-hidden card-purple-hover cursor-pointer flex flex-col justify-between shadow-sm group">
+            <div>
+              <div class="h-52 w-full overflow-hidden relative bg-purple-100 flex items-center justify-center">
+                <img src="images/project-media.jpg" 
+                     alt="Media Visual & Dokumentasi Organisasi" 
+                     class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=700&q=80';" />
+                <span class="absolute top-3 right-3 text-[11px] font-bold bg-white/95 text-purple-700 px-3 py-1 rounded-full shadow-sm border border-purple-100">
+                  Prototypes & UI/UX
+                </span>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors">
+                 Aplikasi Reminder Tugas
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-3">
+                  Aplikasi reminder tugas mahasiswa mirip seperti LMS (Learning Management System) namun diaplikasi ini mengintegrasikan LMS Celoe Tel-U dengan DueDays jadi seluruh tugas mata kuliah bisa terpantau oleh user dengan adanya notifikasi deadline tugas yang harus dikerjakan oleh user
+              </div>
+            </div>
+
+            <div class="p-6 pt-0">
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">Photoshop</span>
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">Capcut</span>
+                <span class="text-[11px] bg-purple-50 text-purple-700 px-2.5 py-1 rounded-lg font-medium">Adobe Bridge</span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-purple-600 font-semibold">
+                <span>Klik untuk Detail & URL</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white border-t border-purple-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs font-bold text-purple-700 uppercase tracking-widest bg-purple-100/80 px-3.5 py-1 rounded-full border border-purple-200">
+            Keahlian & Kemampuan
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Matriks Keterampilan</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Skill 1: Graphic Design (Expert) -->
+          <div class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover transition-all flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-bezier-curve"></i>
+                </div>
+                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+                  Expert
+                </span>
+              </div>
+
+              <h3 class="text-base font-bold text-slate-900">Graphic Design</h3>
+              <p class="text-xs text-slate-500 mt-1 mb-4">Perancangan visual, layout, dan antarmuka UI/UX.</p>
+
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Figma</span>
+                  <span class="text-purple-700 font-medium">UI/UX Prototype</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Canva</span>
+                  <span class="text-purple-700 font-medium">Social & Presentation</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Adobe Photoshop</span>
+                  <span class="text-purple-700 font-medium">Image Editing</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Adobe Bridge</span>
+                  <span class="text-purple-700 font-medium">Asset Organization</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 2: Bahasa Pemrograman (Intermediate) -->
+          <div class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover transition-all flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-code"></i>
+                </div>
+                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+                  Intermediate
+                </span>
+              </div>
+
+              <h3 class="text-base font-bold text-slate-900">Bahasa Pemrograman</h3>
+              <p class="text-xs text-slate-500 mt-1 mb-4">Bahasa untuk komputasi dan logika perangkat lunak.</p>
+
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">C#</span>
+                  <span class="text-purple-700 font-medium">OOP & Logika</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">JavaScript</span>
+                  <span class="text-purple-700 font-medium">Frontend Interaktif</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">PHP</span>
+                  <span class="text-purple-700 font-medium">Backend Logic</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Python</span>
+                  <span class="text-purple-700 font-medium">Data & Scripting</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 3: Framework & Database (Intermediate) -->
+          <div class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover transition-all flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-database"></i>
+                </div>
+                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+                  Intermediate
+                </span>
+              </div>
+
+              <h3 class="text-base font-bold text-slate-900">Framework & Database</h3>
+              <p class="text-xs text-slate-500 mt-1 mb-4">Pengembangan web modern dan manajemen basis data.</p>
+
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Laravel</span>
+                  <span class="text-purple-700 font-medium">PHP Framework</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">MySQL</span>
+                  <span class="text-purple-700 font-medium">Relational DB</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">GitHub</span>
+                  <span class="text-purple-700 font-medium">Version Control</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 4: Video Editor (Advanced) -->
+          <div class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover transition-all flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-film"></i>
+                </div>
+                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+                  Advanced
+                </span>
+              </div>
+
+              <h3 class="text-base font-bold text-slate-900">Video Editor</h3>
+              <p class="text-xs text-slate-500 mt-1 mb-4">Produksi video kreatif untuk media sosial dan promosi.</p>
+
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-xl bg-purple-50/60 flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Capcut</span>
+                  <span class="text-purple-700 font-medium">Motion & Cut</span>
+                </div>
+                <div class="p-3 rounded-xl bg-purple-50/40 text-slate-600 leading-relaxed">
+                  Pembuatan video dokumentasi kegiatan organisasi dan konten visual publikasi.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Certificates Section (5 Sertifikat Resmi, Klik untuk Detail & URL Kredensial) -->
+    <section id="certificates" class="py-20 bg-purple-50/30 border-t border-purple-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs font-bold text-purple-700 uppercase tracking-widest bg-purple-100/80 px-3.5 py-1 rounded-full border border-purple-200">
+            Sertifikasi & Sertfikat
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Setifikat & Sertifikasi Nasional</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Cert 1: Short Class UI/UX Research Design (KarirNex) -->
+          <div onclick="openCertificateModal(0)" 
+               class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover cursor-pointer transition-all flex flex-col justify-between shadow-sm group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-base">
+                  <i class="fa-solid fa-pen-ruler"></i>
+                </div>
+                <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
+                  Design & Research
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 group-hover:text-purple-700 transition-colors mt-2">Short Class UI/UX Research Design</h3>
+                <p class="text-xs text-purple-700 font-semibold mt-1">KarirNex</p>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-3">
+                Pelatihan metodologi riset pengguna, wireframing, arsitektur informasi, dan perancangan antarmuka pengguna berbasis usability.
+              </p>
+            </div>
+            <div class="mt-5 pt-3 border-t border-purple-100 flex items-center justify-between text-xs text-purple-600 font-semibold">
+              <span>Klik untuk Gambar & URL</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </div>
+
+          <!-- Cert 2: Mini Course Cyber Security (Rework Academy) -->
+          <div onclick="openCertificateModal(1)" 
+               class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover cursor-pointer transition-all flex flex-col justify-between shadow-sm group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-base">
+                  <i class="fa-solid fa-lock"></i>
+                </div>
+                <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
+                  Information Security
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 group-hover:text-purple-700 transition-colors mt-2">Mini Course Cyber Security</h3>
+                <p class="text-xs text-purple-700 font-semibold mt-1">Rework Academy</p>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-3">
+                Pemahaman dasar proteksi integritas data, keamanan sistem informasi modern, dan pertahanan siber dalam sistem komputasi.
+              </p>
+            </div>
+            <div class="mt-5 pt-3 border-t border-purple-100 flex items-center justify-between text-xs text-purple-600 font-semibold">
+              <span>Klik untuk Gambar & URL</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </div>
+
+          <!-- Cert 3: Google Generative AI Accelerator Program (SmartBridge) -->
+          <div onclick="openCertificateModal(2)" 
+               class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover cursor-pointer transition-all flex flex-col justify-between shadow-sm group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-base">
+                  <i class="fa-solid fa-network-wired"></i>
+                </div>
+                <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
+                  Accelerator Program
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 group-hover:text-purple-700 transition-colors mt-2">Google Generative AI Accelerator Program</h3>
+                <p class="text-xs text-purple-700 font-semibold mt-1">SmartBridge Indonesia</p>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-3">
+                Program akselerasi komputasi cerdas yang diselenggarakan oleh SmartBridge Indonesia mencakup pemahaman model bahasa dan implementasi praktis teknologi mutakhir.
+              </p>
+            </div>
+            <div class="mt-5 pt-3 border-t border-purple-100 flex items-center justify-between text-xs text-purple-600 font-semibold">
+              <span>Klik untuk Gambar & URL</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </div>
+
+          <!-- Cert 4: Certified Cybersecurity Foundations (Hackviser) -->
+          <div onclick="openCertificateModal(3)" 
+               class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover cursor-pointer transition-all flex flex-col justify-between shadow-sm group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-base">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
+                  Security Foundations
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 group-hover:text-purple-700 transition-colors mt-2">Certified Cybersecurity Foundations</h3>
+                <p class="text-xs text-purple-700 font-semibold mt-1">Hackviser</p>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-3">
+                Fondasi keamanan sistem, identifikasi celah kerentanan perangkat lunak dan jaringan, serta pemahaman mitigasi ancaman siber.
+              </p>
+            </div>
+            <div class="mt-5 pt-3 border-t border-purple-100 flex items-center justify-between text-xs text-purple-600 font-semibold">
+              <span>Klik untuk Gambar & URL</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </div>
+
+          <!-- Cert 5: SCM500 - Business Processes in Procurement (SAP Edugate) -->
+          <div onclick="openCertificateModal(4)" 
+               class="bg-white border border-purple-100 rounded-3xl p-6 card-purple-hover cursor-pointer transition-all flex flex-col justify-between shadow-sm md:col-span-2 lg:col-span-2 group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-base">
+                  <i class="fa-solid fa-boxes-packing"></i>
+                </div>
+                <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
+                  ERP & Business Processes
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 group-hover:text-purple-700 transition-colors mt-2">SCM500 - Business Processes in Procurement</h3>
+                <p class="text-xs text-purple-700 font-semibold mt-1">SAP Edugate</p>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed text-justify line-clamp-3">
+                Pemahaman alur proses bisnis pengadaan barang dan jasa pada arsitektur sistem enterprise SAP Supply Chain Management (SCM), mencakup siklus purchase order, vendor management, dan pengelolaan inventory terintegrasi.
+              </p>
+            </div>
+            <div class="mt-5 pt-3 border-t border-purple-100 flex items-center justify-between text-xs text-purple-600 font-semibold">
+              <span>Klik untuk Gambar & URL</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact Section (Email, LinkedIn, Instagram, No Telp) -->
+    <section id="contact" class="py-20 bg-white border-t border-purple-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs font-bold text-purple-700 uppercase tracking-widest bg-purple-100/80 px-3.5 py-1 rounded-full border border-purple-200">
+            Contact With Us
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Let's Connect Our Social Media </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Email Card -->
+          <a href="mailto:rionaldo0607@gmail.com" 
+             class="p-6 rounded-3xl bg-purple-50/50 border border-purple-100 hover:border-purple-300 transition-all hover:-translate-y-1 shadow-sm group flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white text-purple-700 flex items-center justify-center text-xl shadow-sm mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900">Email</h3>
+              <p class="text-xs text-purple-800 font-medium break-all mt-1">rionaldo0607@gmail.com</p>
+            </div>
+            <div class="mt-6 flex items-center text-xs font-bold text-purple-700 gap-1">
+              <span>Kirim Email</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </a>
+
+          <!-- LinkedIn Card -->
+          <a href="https://linkedin.com/in/jonathanrionaldo/" target="_blank" rel="noopener noreferrer"
+             class="p-6 rounded-3xl bg-purple-50/50 border border-purple-100 hover:border-purple-300 transition-all hover:-translate-y-1 shadow-sm group flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white text-purple-700 flex items-center justify-center text-xl shadow-sm mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900">LinkedIn</h3>
+              <p class="text-xs text-purple-800 font-medium mt-1">in/jonathanrionaldo</p>
+            </div>
+            <div class="mt-6 flex items-center text-xs font-bold text-purple-700 gap-1">
+              <span>Buka LinkedIn</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </a>
+
+          <!-- Instagram Card -->
+          <a href="https://instagram.com/rionaldo0607" target="_blank" rel="noopener noreferrer"
+             class="p-6 rounded-3xl bg-purple-50/50 border border-purple-100 hover:border-purple-300 transition-all hover:-translate-y-1 shadow-sm group flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white text-purple-700 flex items-center justify-center text-xl shadow-sm mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                <i class="fa-brands fa-instagram"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900">Instagram</h3>
+              <p class="text-xs text-purple-800 font-medium mt-1">@rionaldo0607</p>
+            </div>
+            <div class="mt-6 flex items-center text-xs font-bold text-purple-700 gap-1">
+              <span>Buka Instagram</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </a>
+
+          <!-- No Telp / WhatsApp Card -->
+          <a href="https://wa.me/6287754959733" target="_blank" rel="noopener noreferrer"
+             class="p-6 rounded-3xl bg-purple-50/50 border border-purple-100 hover:border-purple-300 transition-all hover:-translate-y-1 shadow-sm group flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white text-purple-700 flex items-center justify-center text-xl shadow-sm mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900">Telepon / WhatsApp</h3>
+              <p class="text-xs text-purple-800 font-medium mt-1">+62 877-5495-9733</p>
+            </div>
+            <div class="mt-6 flex items-center text-xs font-bold text-purple-700 gap-1">
+              <span>Hubungi via WA</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Detail Modal Dialog (Pop-up Gambar, URL, Deskripsi) -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm transition-all duration-300 opacity-0 pointer-events-none">
+    <div class="relative w-full max-w-2xl bg-white rounded-3xl border border-purple-100 shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-purple-100 flex items-center justify-between bg-purple-50/50">
+        <div class="flex items-center gap-2">
+          <span id="modalCategoryBadge" class="text-[11px] font-bold text-purple-700 bg-white border border-purple-200 px-3 py-1 rounded-full shadow-xs">
+            Kategori
+          </span>
+          <span id="modalSubtitle" class="text-xs text-slate-500 font-medium"></span>
+        </div>
+        <button onclick="closeDetailModal()" class="w-9 h-9 rounded-full bg-white border border-purple-200 text-slate-500 hover:text-purple-700 hover:bg-purple-50 flex items-center justify-center transition-all">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 sm:p-7 overflow-y-auto space-y-5">
+        
+        <!-- Image Container (Folder images/ fallback) -->
+        <div class="w-full h-56 sm:h-72 rounded-2xl overflow-hidden bg-purple-50 border border-purple-100 relative flex items-center justify-center">
+          <img id="modalImage" src="" alt="Detail Preview" class="w-full h-full object-cover object-center" />
+        </div>
+
+        <!-- Title & Organization / Date -->
+        <div>
+          <h3 id="modalTitle" class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight"></h3>
+          <p id="modalMeta" class="text-xs sm:text-sm font-semibold text-purple-700 mt-1"></p>
+        </div>
+
+        <!-- Tags / Badges -->
+        <div id="modalTags" class="flex flex-wrap gap-1.5"></div>
+
+        <!-- Description -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Deskripsi</h4>
+          <p id="modalDescription" class="text-xs sm:text-sm text-slate-600 leading-relaxed text-justify"></p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 bg-purple-50/40 border-t border-purple-100 flex flex-wrap items-center justify-between gap-3">
+        <button onclick="closeDetailModal()" class="px-5 py-2.5 rounded-full bg-white border border-purple-200 text-slate-700 hover:bg-purple-50 text-xs font-semibold transition-all">
+          Tutup
+        </button>
+        <a id="modalActionButton" href="#" target="_blank" rel="noopener noreferrer" 
+           class="px-6 py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold transition-all flex items-center gap-2 shadow-md shadow-purple-600/20">
+          <span id="modalActionText">Kunjungi URL</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer Minimalis dengan Kategori / Nav Bar -->
+  <footer class="bg-white border-t border-purple-100 pt-14 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Footer Grid Categories -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        
+        <!-- Brand / Identity Column -->
+        <div class="space-y-4">
+          <span class="text-2xl font-black text-slate-900">
+            Jonathan Rionaldo <span class="text-purple-600">.</span>
+          </span>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Mahasiswa Sistem Informasi Telkom University Surabaya. Berfokus pada sinergi antara pengembangan web fungsional dan desain UI/UX berbasis kebutuhan pengguna.
+          </p>
+          <div class="flex items-center gap-2 text-slate-500">
+            <a href="mailto:rionaldo0607@gmail.com" class="w-8 h-8 rounded-full bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white flex items-center justify-center transition-all" title="Email">
+              <i class="fa-solid fa-envelope text-xs"></i>
+            </a>
+            <a href="https://linkedin.com/in/jonathanrionaldo/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white flex items-center justify-center transition-all" title="LinkedIn">
+              <i class="fa-brands fa-linkedin-in text-xs"></i>
+            </a>
+            <a href="https://instagram.com/rionaldo0607" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white flex items-center justify-center transition-all" title="Instagram">
+              <i class="fa-brands fa-instagram text-xs"></i>
+            </a>
+            <a href="https://wa.me/6287754959733" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white flex items-center justify-center transition-all" title="WhatsApp">
+              <i class="fa-brands fa-whatsapp text-xs"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 1: Navigasi Cepat -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-4">Navigasi Halaman</h4>
+          <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
+            <li><a href="#home" class="hover:text-purple-700 transition-colors">Home</a></li>
+            <li><a href="#about" class="hover:text-purple-700 transition-colors">Tentang Saya</a></li>
+            <li><a href="#experience" class="hover:text-purple-700 transition-colors">Pengalaman Organisasi</a></li>
+            <li><a href="#projects" class="hover:text-purple-700 transition-colors">Proyek & Karya</a></li>
+            <li><a href="#skills" class="hover:text-purple-700 transition-colors">Matriks Keahlian</a></li>
+            <li><a href="#certificates" class="hover:text-purple-700 transition-colors">Sertifikat Resmi</a></li>
+          </ul>
+        </div>
+
+        <!-- Category 2: Akademik & Minat -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-4">Pendidikan & Minat</h4>
+          <ul class="space-y-2.5 text-xs text-slate-600">
+            <li class="font-semibold text-slate-800">Telkom University</li>
+            <li>S1 Sistem Informasi (2024 - Sekarang)</li>
+            <li class="font-semibold text-slate-800 pt-1">Fokus Bidang:</li>
+            <li>• UI/UX Research & Design (Figma)</li>
+            <li>• Full-Stack Web (Laravel, PHP, MySQL)</li>
+            <li>• Media & Visual Identity Organisasi</li>
+          </ul>
+        </div>
+
+        <!-- Category 3: Kontak & Status -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-4">Contact Us</h4>
+          <ul class="space-y-2.5 text-xs text-slate-600">
+            <li><span class="text-slate-400">Email:</span> rionaldo0607@gmail.com</li>
+            <li><span class="text-slate-400">Telepon:</span> +62 877-5495-9733</li>
+            <li><span class="text-slate-400">Lokasi:</span> Surabaya, Jawa Timur</li>
+            <li class="pt-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold text-[11px]">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                Terbuka untuk Kolaborasi
+              </span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Minimal Bottom Copyright -->
+      <div class="pt-8 border-t border-purple-50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <p>&copy; <span id="currentYear"></span> Noxeura Creative. All rights reserved.</p>
+        <p class="text-slate-400">Portfolio Website Jonathan Rionaldo.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Script Interaksi, Modal Pop-up & Animasi -->
+  <script>
+    // Set Tahun Otomatis
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Data Lengkap Proyek (dengan Gambar, Deskripsi, dan URL)
+    const projectsData = [
+      {
+        title: "Aplikasi Kesehatan KlikFit",
+        category: "UI/UX Project",
+        image: "",
+        fallbackImage: "",
+        description: "Aplikasi kesehatan tahap prototype yang mengintegrasikan chatbox, jadwal latihan, trainer dan tempat olahraga dimana user bisa memilih trainer dan berinteraksi langsung dengan trainer melalui fitur chatbox serta melihat jadwal latihan berdasarkan kategori  berdasarkan data booking oleh user",
+        tags: ["Figma", "UI/UX Design", "Prototype", "Wireframing"],
+        url: "https://www.figma.com",
+        actionText: "Preview"
+      },
+      {
+        title: "Sistem Monitoring Ruang Kelas Tel-U Surabaya",
+        category: "Web Development",
+        image: "",
+        fallbackImage: "",
+        description: "Sistem berbasis Laravel yang dirancang untuk memfasilitasi proses peminjaman ruang kelas di lingkungan Telkom University Surabaya, mencakup pengecekan ketersediaan ruang dan pengajuan peminjaman secara digital.",
+        tags: ["Laravel", "PHP", "MySQL"],
+        url: "https://github.com",
+        actionText: "Preview"
+      },
+      {
+        title: "Aplikasi Reminder Tugas",
+        category: "UI/UX Project",
+        image: "",
+        fallbackImage: "",
+        description: "Aplikasi reminder tugas mahasiswa mirip seperti LMS (Learning Management System) namun diaplikasi ini mengintegrasikan LMS Celoe Tel-U dengan DueDays jadi seluruh tugas mata kuliah bisa terpantau oleh user dengan adanya notifikasi deadline tugas yang harus dikerjakan oleh user",
+        tags: ["UI/UX Design", "Figma", "Prototype"],
+        url: "https://instagram.com/jonathanrionaldo",
+        actionText: "Preview"
+      }
+    ];
+
+    // Data Lengkap Pengalaman Organisasi
+    const experienceData = [
+      {
+        title: "Kepala Divisi Medinfo",
+        category: "Pengalaman Organisasi",
+        meta: "Dewan Perwakilan Mahasiswa (DPM) • Jan 2026 - Present",
+        image: "images/exp-dpm.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=80",
+        description: "Bertanggung jawab dalam memimpin dan mengoordinasikan Divisi Media dan Informasi, meliputi pengelolaan media sosial, perencanaan dan pembuatan konten visual, dokumentasi kegiatan, serta publikasi informasi organisasi. Mengembangkan strategi untuk meningkatkan engagement dan jangkauan media sosial, mengawasi konsistensi identitas visual, serta mengoordinasikan publikasi dan press release terkait kegiatan maupun isu yang relevan dengan mahasiswa.",
+        tags: ["Kepemimpinan", "Media Strategy", "Publikasi", "Press Release", "Koordinasi Tim"],
+        url: null
+      },
+      {
+        title: "Staff Kominfo",
+        category: "Pengalaman Organisasi",
+        meta: "Keluarga Mahasiswa Katolik St Filegon • Jan 2026 - Present",
+        image: "images/exp-kmk.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80",
+        description: "Berperan dalam mendukung pengelolaan komunikasi, informasi, dan publikasi organisasi melalui pembuatan konten media sosial, desain materi publikasi, serta dokumentasi kegiatan. Berkolaborasi dengan tim dalam menyampaikan informasi kegiatan secara informatif dan menarik serta menjaga konsistensi media dan identitas visual organisasi.",
+        tags: ["Desain Konten", "Media Sosial", "Dokumentasi", "Teamwork"],
+        url: null
+      },
+      {
+        title: "Staff Muda Kominfo",
+        category: "Pengalaman Organisasi",
+        meta: "Badan Eksekutif Mahasiswa (BEM KEMA Telkom Univ Surabaya) • May 2025 - Jan 2026",
+        image: "images/exp-bem.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80",
+        description: "Berperan dalam mendukung kegiatan komunikasi, informasi, dan publikasi organisasi melalui pembuatan serta pengelolaan konten media sosial. Terlibat dalam desain konten, dokumentasi kegiatan, penyampaian informasi kepada mahasiswa, serta berkolaborasi dengan tim dalam mendukung publikasi program kerja BEM KEMA Telkom University Surabaya.",
+        tags: ["BEM KEMA", "Informasi Publik", "Content Creation", "Event Support"],
+        url: null
+      }
+    ];
+
+    // Data Lengkap 5 Sertifikat Resmi (dengan Gambar, Deskripsi, dan URL)
+    const certificatesData = [
+      {
+        title: "Short Class UI/UX Research Design",
+        category: "Sertifikasi Resmi",
+        meta: "Penerbit: KarirNex",
+        image: "images/cert-uiux.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=1000&q=80",
+        description: "Pelatihan metodologi riset pengguna, wireframing, arsitektur informasi, penyusunan user-flow, dan perancangan antarmuka pengguna berbasis usability testing dan standard user experience design.",
+        tags: ["KarirNex", "UI/UX", "User Research", "Wireframe"],
+        url: "https://karirnex.com",
+        actionText: "Verifikasi / Info Sertifikat"
+      },
+      {
+        title: "Mini Course Cyber Security",
+        category: "Sertifikasi Resmi",
+        meta: "Penerbit: Rework Academy",
+        image: "images/cert-rework.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1000&q=80",
+        description: "Pemahaman dasar proteksi integritas data, model keamanan sistem informasi modern, identifikasi malicious software, dan pertahanan siber dalam sistem komputasi enterprise.",
+        tags: ["Rework Academy", "Cyber Security", "Data Protection"],
+        url: "https://rework.id",
+        actionText: "Verifikasi / Info Sertifikat"
+      },
+      {
+        title: "Google Generative AI Accelerator Program",
+        category: "Sertifikasi Resmi",
+        meta: "Penerbit: SmartBridge Indonesia",
+        image: "images/cert-google-ai.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1000&q=80",
+        description: "Program akselerasi komputasi yang diselenggarakan oleh SmartBridge Indonesia mencakup pemahaman model bahasa, prompt engineering, dan implementasi praktis teknologi modern dalam ekosistem digital.",
+        tags: ["SmartBridge Indonesia", "Google Program", "Accelerator"],
+        url: "https://smartbridge.com",
+        actionText: "Verifikasi / Info Sertifikat"
+      },
+      {
+        title: "Certified Cybersecurity Foundations",
+        category: "Sertifikasi Resmi",
+        meta: "Penerbit: Hackviser",
+        image: "images/cert-hackviser.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1000&q=80",
+        description: "Sertifikasi fondasi keamanan sistem, identifikasi celah kerentanan perangkat lunak dan jaringan komputer, analisis ancaman, serta standar mitigasi insiden siber.",
+        tags: ["Hackviser", "Security Foundations", "Network Security"],
+        url: "https://hackviser.com",
+        actionText: "Verifikasi / Info Sertifikat"
+      },
+      {
+        title: "SCM500 - Business Processes in Procurement",
+        category: "Sertifikasi Resmi",
+        meta: "Penerbit: SAP Edugate",
+        image: "images/cert-sap.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=80",
+        description: "Pemahaman alur proses bisnis pengadaan barang dan jasa pada arsitektur sistem enterprise SAP Supply Chain Management (SCM), mencakup siklus purchase order, vendor management, dan integrasi modul inventori.",
+        tags: ["SAP Edugate", "SCM500", "Procurement", "Enterprise System"],
+        url: "https://www.sap.com",
+        actionText: "Verifikasi / Info Sertifikat"
+      }
+    ];
+
+    // Fungsi Render Modal Universal
+    const detailModal = document.getElementById('detailModal');
+    const modalCategoryBadge = document.getElementById('modalCategoryBadge');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalTags = document.getElementById('modalTags');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalActionButton = document.getElementById('modalActionButton');
+    const modalActionText = document.getElementById('modalActionText');
+
+    function openModalWithData(data) {
+      modalCategoryBadge.textContent = data.category;
+      modalSubtitle.textContent = data.meta || '';
+      modalTitle.textContent = data.title;
+      modalMeta.textContent = data.meta;
+      modalDescription.textContent = data.description;
+
+      // Handle Image with fallback
+      modalImage.src = data.image;
+      modalImage.onerror = () => {
+        modalImage.src = data.fallbackImage;
+      };
+
+      // Tags
+      modalTags.innerHTML = '';
+      if (data.tags && data.tags.length > 0) {
+        data.tags.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'text-[11px] bg-purple-50 text-purple-700 px-3 py-1 rounded-lg font-medium border border-purple-100';
+          span.textContent = tag;
+          modalTags.appendChild(span);
+        });
+      }
+
+      // Action URL Button (khusus proyek & sertifikat yang memiliki URL)
+      if (data.url) {
+        modalActionButton.classList.remove('hidden');
+        modalActionButton.href = data.url;
+        modalActionText.textContent = data.actionText || 'Kunjungi URL';
+      } else {
+        modalActionButton.classList.add('hidden');
+      }
+
+      // Show Modal with Animation
+      detailModal.classList.remove('hidden', 'pointer-events-none');
+      setTimeout(() => {
+        detailModal.classList.remove('opacity-0');
+        detailModal.firstElementChild.classList.remove('scale-95');
+        detailModal.firstElementChild.classList.add('scale-100');
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetailModal() {
+      detailModal.classList.add('opacity-0');
+      detailModal.firstElementChild.classList.remove('scale-100');
+      detailModal.firstElementChild.classList.add('scale-95');
+      setTimeout(() => {
+        detailModal.classList.add('hidden', 'pointer-events-none');
+        document.body.style.overflow = '';
+      }, 250);
+    }
+
+    // Modal Trigger Handlers
+    function openProjectModal(index) {
+      if (projectsData[index]) openModalWithData(projectsData[index]);
+    }
+
+    function openExperienceModal(index) {
+      if (experienceData[index]) openModalWithData(experienceData[index]);
+    }
+
+    function openCertificateModal(index) {
+      if (certificatesData[index]) openModalWithData(certificatesData[index]);
+    }
+
+    // Close Modal on Outside Click & ESC Key
+    detailModal.addEventListener('click', (e) => {
+      if (e.target === detailModal) closeDetailModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !detailModal.classList.contains('hidden')) {
+        closeDetailModal();
+      }
+    });
+
+    // Dynamic Rotating Subtitle on Hero
+    const roles = [
+      "Sistem Informasi Telkom University",
+      "Web Developer & UI/UX Designer",
+      "Kepala Divisi Medinfo DPM"
+    ];
+    let currentRoleIndex = 0;
+    const typingRoleText = document.getElementById('typingRoleText');
+
+    if (typingRoleText) {
+      setInterval(() => {
+        currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+        typingRoleText.style.opacity = '0';
+        setTimeout(() => {
+          typingRoleText.textContent = roles[currentRoleIndex];
+          typingRoleText.style.opacity = '1';
+        }, 300);
+      }, 3500);
+    }
+
+    // Toggle Navigasi Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        menuIcon.classList.remove('fa-bars');
+        menuIcon.classList.add('fa-xmark');
+      } else {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('fa-xmark');
+        menuIcon.classList.add('fa-bars');
+      }
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('fa-xmark');
+        menuIcon.classList.add('fa-bars');
+      });
+    });
+  </script>
+</body>
+</html>
